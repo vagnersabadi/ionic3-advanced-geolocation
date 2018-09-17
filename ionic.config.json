@@ -1,0 +1,7 @@
+{
+  "name": "geo-advanced",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
