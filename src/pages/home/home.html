@@ -1,19 +1,29 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Ionic GEo Advanced</ion-title>
+    <ion-title>Ionic Geolocation Advanced</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button ion-button text-center (click)="busca()"> Busca  </button>
-  <p *ngFor="let item of localizacion">
-    <span ion-text text-center >localizacion: {{item}} </span>
-  </p>
+  <!-- DEFAULT -->
+  <ion-item>
+    <ion-item-divider color="light">DEFAULT</ion-item-divider>
+    <ion-item> {{localizacion}}</ion-item>
+    <button ion-button text-center (click)="busca()"> Busca </button>
+  </ion-item>
 
+  <!-- SUBSCRIBLE -->
+  <ion-item>
+    <ion-item-divider color="light">SUBSCRIBLE</ion-item-divider>
+    <ion-item> {{resp_sub}}</ion-item>
+    <button ion-button text-center (click)="get_gps_sub()"> Busca Subscrible </button>
+  </ion-item>
 
-  <button ion-button text-center (click)="get_gps()"> Busca GPS </button>
-  <p>
-    <span ion-text text-center>GPS : {{gps_coor}} </span>
-  </p>
+  <!-- PROMISSE -->
+  <ion-item>
+    <ion-item-divider color="light">PROMISSE</ion-item-divider>
+    <ion-item> {{resp_promis}}</ion-item>
+    <button ion-button text-center (click)="get_gps_promis()"> Busca Promisse</button>
+  </ion-item>
 
 </ion-content>

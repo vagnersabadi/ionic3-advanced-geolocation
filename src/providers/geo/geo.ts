@@ -3,6 +3,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Injectable } from "@angular/core";
 import { Platform, ToastController } from "ionic-angular";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { Observable } from 'rxjs/Observable';
 
 declare let AdvancedGeolocation: any;
 
@@ -35,22 +36,22 @@ export class GeoProvider {
                         }
                     }
                     catch (exc) {
-                        console.log("Invalid JSON: " + exc);
+                        console.log("Invalido JSON: " + exc);
                     }
                 },
                     function(error) {
                         console.log("ERROR! " + JSON.stringify(error));
                     },
                     {
-                      "minTime": 500,           //Intervalo de tempo mínimo entre atualizações (ms)
-                      "minDistance": 1,         //Min distância entre atualizações (metros)
-                      "noWarn": true,           //Avisos do provedor de localização nativa
-                      "providers": "all",       //Devolve localizações GPS, NETWORK e CELL
-                      "useCache": false,        //Retorna os locais em cache do GPS e da NETWORK
-                      "satelliteData": false,   //Retorno da informação do satélite GPS
-                      "buffer": false,          //Buffer location location
-                      "bufferSize": 0,          // Max elementos no buffer
-                      "signalStrength": false   //Retorna os dados da força do sinal da célula
+                        "minTime": 500,           //Intervalo de tempo mínimo entre atualizações (ms)
+                        "minDistance": 1,         //Min distância entre atualizações (metros)
+                        "noWarn": true,           //Avisos do provedor de localização nativa
+                        "providers": "all",       //Devolve localizações GPS, NETWORK e CELL
+                        "useCache": false,        //Retorna os locais em cache do GPS e da NETWORK
+                        "satelliteData": false,   //Retorno da informação do satélite GPS
+                        "buffer": false,          //Buffer location location
+                        "bufferSize": 0,          // Max elementos no buffer
+                        "signalStrength": false   //Retorna os dados da força do sinal da célula
                     });
             });
         }
@@ -62,31 +63,57 @@ export class GeoProvider {
         }
     }
 
-    getcoordenadasGPS() {
-        let coor = null;
-        AdvancedGeolocation.start((success) => {
-            var jsonObject = JSON.parse(success);
-            if (jsonObject.provider == "gps") {
-                coor = jsonObject.latitude + '/' + jsonObject.longitude + '/GPS';
-                alert(coor);
-            }
-        },
-            (error) => {
-                console.log("ERROR! " + JSON.stringify(error));
-                // alert("ERROR! " + JSON.stringify(error));
+    getcoordenadasPromisse(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            AdvancedGeolocation.start((success) => {
+                var jsonObject = JSON.parse(success);
+                if (jsonObject.provider == "gps") {
+                    let coor = jsonObject.latitude + '/' + jsonObject.longitude + '/GPS';
+                    resolve(coor);
+                }
             },
-            {
-                "minTime": 500,           //Intervalo de tempo mínimo entre atualizações (ms)
-                "minDistance": 1,         //Min distância entre atualizações (metros)
-                "noWarn": true,           //Avisos do provedor de localização nativa
-                "providers": "all",       //Devolve localizações GPS, NETWORK e CELL
-                "useCache": false,        //Retorna os locais em cache do GPS e da NETWORK
-                "satelliteData": false,   //Retorno da informação do satélite GPS
-                "buffer": false,          //Buffer location location
-                "bufferSize": 0,          // Max elementos no buffer
-                "signalStrength": false   //Retorna os dados da força do sinal da célula
-            });
-        return coor;
+                (error) => {
+                    console.log("ERROR! " + JSON.stringify(error));
+                    reject(error);
+                },
+                {
+                    "minTime": 500,           //Intervalo de tempo mínimo entre atualizações (ms)
+                    "minDistance": 1,         //Min distância entre atualizações (metros)
+                    "noWarn": true,           //Avisos do provedor de localização nativa
+                    "providers": "all",       //Devolve localizações GPS, NETWORK e CELL
+                    "useCache": false,        //Retorna os locais em cache do GPS e da NETWORK
+                    "satelliteData": false,   //Retorno da informação do satélite GPS
+                    "buffer": false,          //Buffer location location
+                    "bufferSize": 0,          // Max elementos no buffer
+                    "signalStrength": false   //Retorna os dados da força do sinal da célula
+                });
+        });
+    }
+
+    getcoordenadasObserble(): Observable<any> {
+        return new Observable((observer) => {
+            AdvancedGeolocation.start((success) => {
+                var jsonObject = JSON.parse(success);
+                if (jsonObject.provider == "gps") {
+                    let coor = jsonObject.latitude + '/' + jsonObject.longitude + '/GPS';
+                    observer.next(coor);
+                }
+            },
+                (error) => {
+                    console.log("ERROR! " + JSON.stringify(error));
+                },
+                {
+                    "minTime": 500,           //Intervalo de tempo mínimo entre atualizações (ms)
+                    "minDistance": 1,         //Min distância entre atualizações (metros)
+                    "noWarn": true,           //Avisos do provedor de localização nativa
+                    "providers": "all",       //Devolve localizações GPS, NETWORK e CELL
+                    "useCache": false,        //Retorna os locais em cache do GPS e da NETWORK
+                    "satelliteData": false,   //Retorno da informação do satélite GPS
+                    "buffer": false,          //Buffer location location
+                    "bufferSize": 0,          // Max elementos no buffer
+                    "signalStrength": false   //Retorna os dados da força do sinal da célula
+                });
+        });
     }
 
 }

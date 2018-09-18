@@ -3,7 +3,7 @@
     <name>geo-advanced</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.56.1:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -83,6 +83,5 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-advanced-geolocation" spec="https://github.com/esri/cordova-plugin-advanced-geolocation.git" />
-    <allow-navigation href="http://192.168.56.1:8100" sessionid="c9dfabc9" />
     <engine name="android" spec="7.0.0" />
 </widget>
