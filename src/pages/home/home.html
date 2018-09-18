@@ -1,14 +1,19 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <ion-title>Ionic GEo Advanced</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
+  <button ion-button text-center (click)="busca()"> Busca  </button>
+  <p *ngFor="let item of localizacion">
+    <span ion-text text-center >localizacion: {{item}} </span>
   </p>
+
+
+  <button ion-button text-center (click)="get_gps()"> Busca GPS </button>
+  <p>
+    <span ion-text text-center>GPS : {{gps_coor}} </span>
+  </p>
+
 </ion-content>
