@@ -5,35 +5,23 @@
 </ion-header>
 
 <ion-content>
-  <!-- DEFAULT -->
+  <!-- ULTIMA -->
   <ion-item>
-    <ion-item-divider color="light">DEFAULT (GPS/NET/SAT)</ion-item-divider>
-    <span ion-text>Ultimo: {{localizacion_ultimo}}</span>
-    <!-- <ion-item *ngFor="let item of localizacion">{{item}}</ion-item> -->
-    <ion-item text-center>
-      <button ion-button (click)="busca_todos_tipos()"> Busca</button>
-    </ion-item>
+    <ion-item-divider color="light">ULTIMA COORDENADA (GPS/NET/SAT)</ion-item-divider>
+    <ion-item ion-text>{{localizacion_ultimo}}</ion-item>
   </ion-item>
 
-  <!-- PROMISSE -->
+  <!-- ARRAY -->
   <ion-item>
-    <ion-item-divider color="light">PROMISSE (ONLY GPS)</ion-item-divider>
-    <span ion-text>Ultimo: {{resp_promis_ultimo}}</span>
-    <ion-item *ngFor="let item of resp_promis">{{item}}</ion-item>
-    <ion-item text-center>
-      <button ion-button (click)="get_gps_promis()"> Busca</button>
-    </ion-item>
+    <ion-item-divider color="light">LISTA DE COORDENADAS (GPS/NET/SAT)</ion-item-divider>
+    <ion-item *ngFor="let item of localizacion">{{item}}</ion-item>
   </ion-item>
-
-  <!-- SUBSCRIBLE -->
-  <ion-item>
-    <ion-item-divider color="light">SUBSCRIBLE (ONLY GPS)</ion-item-divider>
-    <span ion-text>Ultimo: {{resp_sub_ultimo}}</span>
-    <ion-item *ngFor="let item of resp_sub">{{item}}</ion-item>
-    <ion-item text-center>
-      <button ion-button (click)="get_gps_sub()"> Busca </button>
-    </ion-item>
-  </ion-item>
-
 
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-item text-center>
+      <button ion-button full (click)="busca_todos_tipos()"> Busca Coordenadas</button>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

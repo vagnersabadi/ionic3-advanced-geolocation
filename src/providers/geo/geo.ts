@@ -39,7 +39,7 @@ export class GeoProvider {
                         console.log("Invalido JSON: " + exc);
                     }
                 },
-                    function(error) {
+                    function (error) {
                         console.log("ERROR! " + JSON.stringify(error));
                     },
                     {
@@ -61,61 +61,6 @@ export class GeoProvider {
                 this.localizacion.next(this.data);
             });
         }
-    }
-
-    /**Busca de coordenadas do gps com Promise */
-    getcoordenadasPromisse(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            AdvancedGeolocation.start((success) => {
-                var jsonObject = JSON.parse(success);
-                if (jsonObject.provider == "gps") {
-                    let coor = jsonObject.latitude + '/' + jsonObject.longitude;
-                    resolve(coor);
-                }
-            },
-                (error) => {
-                    console.log("ERROR! " + JSON.stringify(error));
-                    reject(error);
-                },
-                {
-                    "minTime": 500,           //Intervalo de tempo mínimo entre atualizações (ms)
-                    "minDistance": 1,         //Min distância entre atualizações (metros)
-                    "noWarn": true,           //Avisos do provedor de localização nativa
-                    "providers": "all",       //Devolve localizações GPS, NETWORK e CELL
-                    "useCache": false,        //Retorna os locais em cache do GPS e da NETWORK
-                    "satelliteData": false,   //Retorno da informação do satélite GPS
-                    "buffer": false,          //Buffer location location
-                    "bufferSize": 0,          // Max elementos no buffer
-                    "signalStrength": false   //Retorna os dados da força do sinal da célula
-                });
-        });
-    }
-
-    /**Busca de coordenadas do gps com Observable */
-    getcoordenadasObserble(): Observable<any> {
-        return new Observable((observer) => {
-            AdvancedGeolocation.start((success) => {
-                var jsonObject = JSON.parse(success);
-                if (jsonObject.provider == "gps") {
-                    let coor = jsonObject.latitude + '/' + jsonObject.longitude;
-                    observer.next(coor);
-                }
-            },
-                (error) => {
-                    console.log("ERROR! " + JSON.stringify(error));
-                },
-                {
-                    "minTime": 500,           //Intervalo de tempo mínimo entre atualizações (ms)
-                    "minDistance": 1,         //Min distância entre atualizações (metros)
-                    "noWarn": true,           //Avisos do provedor de localização nativa
-                    "providers": "all",       //Devolve localizações GPS, NETWORK e CELL
-                    "useCache": false,        //Retorna os locais em cache do GPS e da NETWORK
-                    "satelliteData": false,   //Retorno da informação do satélite GPS
-                    "buffer": false,          //Buffer location location
-                    "bufferSize": 0,          // Max elementos no buffer
-                    "signalStrength": false   //Retorna os dados da força do sinal da célula
-                });
-        });
     }
 
 }
