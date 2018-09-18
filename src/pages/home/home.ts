@@ -9,52 +9,70 @@ import { GeoProvider } from '../../providers/geo/geo';
 })
 export class HomePage {
 
-  localizacion: any;
-  gps_coor: any;
-  resp_sub: any;
-  resp_promis: any;
+  localizacion_ultimo: any;
+  localizacion: any[] = [];
 
-  private loader: Loading;
+  resp_sub: any[] = [];
+  resp_sub_ultimo: any;
 
+  resp_promis: any[] = [];
+  resp_promis_ultimo: any;
+
+  loader: Loading;
 
   constructor(
     public loc: GeoProvider,
-    private toastCtrl: ToastController,
+    public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
-  ) { }
+  ) {
+    //Init
+    this.busca_todos_tipos();
+  }
 
-  busca() {
+
+  busca_todos_tipos() {
     this.presentLoading();
     this.loc.getcoordenadas();
     this.loc.localizacion.subscribe((_coordenadas) => {
-      this.localizacion = _coordenadas;
+      //this.localizacion = _coordenadas;
+      if (_coordenadas != this.localizacion_ultimo) {
+        this.localizacion.push(_coordenadas);
+        this.localizacion_ultimo = _coordenadas;
+      }
       this.closeLoading();
     });
   }
 
   get_gps_sub() {
-    this.presentLoading();
     this.loc.getcoordenadasObserble().subscribe((resp) => {
-      this.resp_sub = resp;
-      this.closeLoading();
-    })
+      if (resp != this.resp_sub_ultimo) {
+        this.resp_sub.push(resp);
+        this.resp_sub_ultimo = resp;
+      }
+    });
   }
 
   get_gps_promis() {
     this.presentLoading();
     this.loc.getcoordenadasPromisse().then((resp) => {
-      this.resp_promis = resp;
+      if (resp != this.resp_promis_ultimo) {
+        this.resp_promis.push(resp);
+        this.resp_promis_ultimo = resp;
+      }
       this.closeLoading();
     }).catch((err) => {
       this.toast(err);
       this.closeLoading();
-    })
+    });
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////
   /** START LOADING */
-  presentLoading(msgm?: string) {
-    this.loader = this.loadingCtrl.create({ content: msgm, enableBackdropDismiss: false })
+  presentLoading() {
+    this.loader = this.loadingCtrl.create({
+      content: 'Buscando coordenadas...',
+      enableBackdropDismiss: true
+    })
     this.loader.present();
   }
 

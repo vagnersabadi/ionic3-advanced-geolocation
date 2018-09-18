@@ -1,5 +1,4 @@
 import { Geolocation } from '@ionic-native/geolocation';
-
 import { Injectable } from "@angular/core";
 import { Platform, ToastController } from "ionic-angular";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
@@ -14,6 +13,7 @@ export class GeoProvider {
 
     constructor(public platform: Platform, public toastCtrl: ToastController, public geolocation: Geolocation) { }
 
+    /**Busca de coordenadas do gps/network/satelite com BehaviorSubject */
     getcoordenadas() {
         if (this.platform.is('android')) {
             this.platform.ready().then(() => {
@@ -63,12 +63,13 @@ export class GeoProvider {
         }
     }
 
+    /**Busca de coordenadas do gps com Promise */
     getcoordenadasPromisse(): Promise<any> {
         return new Promise((resolve, reject) => {
             AdvancedGeolocation.start((success) => {
                 var jsonObject = JSON.parse(success);
                 if (jsonObject.provider == "gps") {
-                    let coor = jsonObject.latitude + '/' + jsonObject.longitude + '/GPS';
+                    let coor = jsonObject.latitude + '/' + jsonObject.longitude;
                     resolve(coor);
                 }
             },
@@ -90,12 +91,13 @@ export class GeoProvider {
         });
     }
 
+    /**Busca de coordenadas do gps com Observable */
     getcoordenadasObserble(): Observable<any> {
         return new Observable((observer) => {
             AdvancedGeolocation.start((success) => {
                 var jsonObject = JSON.parse(success);
                 if (jsonObject.provider == "gps") {
-                    let coor = jsonObject.latitude + '/' + jsonObject.longitude + '/GPS';
+                    let coor = jsonObject.latitude + '/' + jsonObject.longitude;
                     observer.next(coor);
                 }
             },
