@@ -2,9 +2,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Injectable } from "@angular/core";
 import { Platform, ToastController } from "ionic-angular";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import { Observable } from 'rxjs/Observable';
 
-declare let AdvancedGeolocation: any;
+declare let AdvancedGeolocation: any; //<---IMPORT from cordova-plugin-advanced-geolocation
 
 @Injectable()
 export class GeoProvider {
@@ -57,7 +56,7 @@ export class GeoProvider {
         }
         else {
             this.geolocation.getCurrentPosition().then(pos => {
-                this.data = pos.coords.latitude + '/' + pos.coords.longitude;
+                this.data = pos.coords.latitude + '/' + pos.coords.longitude + '/web';
                 this.localizacion.next(this.data);
             });
         }
