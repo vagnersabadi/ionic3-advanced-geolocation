@@ -9,9 +9,16 @@
 - npm install @ionic-native/geolocation --save  -> [ionic](https://ionicframework.com/docs/native/geolocation/)
    > - ionic cordova plugin add cordova-plugin-geolocation
 
+### Screenshots
+
+<img height="480px" src="/imgs/Screenshot_20180919-093411.png"><img height="480px" src="/imgs/Screenshot_20180919-093418.png?raw=true">
+
+
+
 ### Based on:
 - [IonicDeseos](https://github.com/onirosd/ionicDeseos)
 
 - [GeolocationGeofenceLeaflet](https://github.com/KawtharE/GeolocationGeofenceLeaflet-Ionic3)
+
 
 
